@@ -10,7 +10,7 @@ $(function () {
         studyData.shift()
     }
     console.log(stuData)
-/*     echart_1();
+    echart_1();
     echart_2();
 
     echart_3();
@@ -19,7 +19,7 @@ $(function () {
     echart_map();
     echart_5();
     echart_rank1();
-    echart_rank2(); */
+    echart_rank2();
 
 
     function echart_1() {
