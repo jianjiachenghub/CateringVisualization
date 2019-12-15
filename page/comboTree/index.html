@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+		<link rel="stylesheet" type="text/css" href="css/tree.css"/>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div id="justAnInputBox1" class="select-tree-wrap"></div>
+			<div id="justAnInputBox2" class="select-tree-wrap"></div>
+		</div>
+
+
+
+		<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="./js/comboTreePlugin.js"></script>
+
+		<script>
+			// $.ajax({
+			// 	url: '',
+			// 	type: 'post',
+			// 	contentType : "application/json;charset=utf-8",
+			// 	dataType:'json',
+			// 	success: function(data) {
+			//
+			// 	}
+			// });
+
+			var SampleJSONData = [
+				{
+			        "id": '73A64FDAFFC',
+			        "title": "总裁办",
+							"subs": [
+			            {
+			                "id": '73At4FDoFFC',
+			                "title": "张三"
+			            },
+									{
+			                "id": '73At4FpAFFC',
+			                "title": "李四"
+			            },
+			            {
+			                "id": '73AtwFDAFFC',
+			                "title": "数据中心",
+			                "subs": [
+			                    {
+			                        "id": '13At4FDAFFC',
+			                        "title": "王五"
+			                    },
+			                    {
+			                        "id": '83At4FDAFFC',
+			                        "title": "赵武"
+			                    },
+													{
+			                        "id": '83Al4FDAFFC',
+			                        "title": "通讯中心",
+															"subs": [
+																{
+										                "id": '73At4FmAFFC',
+										                "title": "谢一"
+										            },
+																{
+										                "id": '73At4FpAFFC',
+										                "title": "谢四"
+										            }
+															]
+			                    }
+			                ]
+			            }
+			        ]
+			    },
+			    {
+			        "id": '72A64FDAFFC',
+			        "title": "技术部",
+			        "subs": [
+			            {
+			                "id": '73At4FDAFFC',
+			                "title": "赵小刚"
+			            },
+			            {
+			                "id": '73AtuFDAFFC',
+			                "title": "李小刚"
+			            },
+			            {
+			                "id": '73yt4FDAFFC',
+			                "title": "王小刚"
+			            }
+			        ]
+			    }
+			];
+
+			let aaa = $('#justAnInputBox1').comboTree({
+					source : SampleJSONData,
+					isMultiple: false,
+					isFirstClassSelectable:false, //第一级是否可选
+					cascadeSelect: true,
+					selectedlength:3 //最多可选
+			});
+
+			let bbb = $('#justAnInputBox2').comboTree({
+					source : SampleJSONData,
+					isMultiple: true,
+					isFirstClassSelectable:false, //第一级是否可选
+					cascadeSelect: true,
+					selectedlength: 100 //最多可选
+			});
+
+			// bbb.datas(); //获取数据
+
+		</script>
+
+
+
+	</body>
+</html>

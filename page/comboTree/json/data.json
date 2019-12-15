@@ -1,0 +1,62 @@
+[
+  {
+        "id": '73A64FDAFFC',
+        "title": "总裁办",
+        "subs": [
+            {
+                "id": '73At4FDoFFC',
+                "title": "张三"
+            },
+            {
+                "id": '73At4FpAFFC',
+                "title": "李四"
+            },
+            {
+                "id": '73AtwFDAFFC',
+                "title": "数据中心",
+                "subs": [
+                    {
+                        "id": '13At4FDAFFC',
+                        "title": "王五"
+                    },
+                    {
+                        "id": '83At4FDAFFC',
+                        "title": "赵武"
+                    },
+                    {
+                        "id": '83Al4FDAFFC',
+                        "title": "通讯中心",
+                        "subs": [
+                          {
+                              "id": '73At4FmAFFC',
+                              "title": "谢一"
+                          },
+                          {
+                              "id": '73At4FpAFFC',
+                              "title": "谢四"
+                          }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": '72A64FDAFFC',
+        "title": "技术部",
+        "subs": [
+            {
+                "id": '73At4FDAFFC',
+                "title": "赵小刚"
+            },
+            {
+                "id": '73AtuFDAFFC',
+                "title": "李小刚"
+            },
+            {
+                "id": '73yt4FDAFFC',
+                "title": "王小刚"
+            }
+        ]
+    }
+]
