@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script  src="../js/echarts.min.js"></script>
+    <script src="../js/jquery-2.2.1.min.js"></script>
+    <style>
+        #container{
+            margin:auto;
+            border:2px solid #666;
+            width:80%;height:600px;
+
+        }
+    </style>
+</head>
+<body>
+<div id='container'  ></div>
+<script type="text/javascript">
+
+    var uploadedDataURL = "../data/shop2.json";
+    var myChart = echarts.init(document.getElementById('container'));
+    myChart.showLoading();
+
+    $.getJSON(uploadedDataURL, function (rawData) {
+
+        myChart.hideLoading();
+
+        function convert(source, target, basePath) {
+            for (var key in source) {
+                var path = basePath ? (basePath + '.' + key) : key;
+                if (key.match(/^\$/)) {
+
+                }
+                else {
+                    target.children = target.children || [];
+                    var child = {
+                        name: path
+                    };
+                    target.children.push(child);
+                    convert(source[key], child, path);
+                }
+            }
+
+            if (!target.children) {
+                target.value = source.$count || 1;
+            }
+            else {
+                target.children.push({
+                    name: basePath,
+                    value: source.$count
+                });
+            }
+        }
+
+        var data = [];
+
+        convert(rawData, data, '');
+        var formatUtil = echarts.format;
+        myChart.setOption(option = {
+            title: {
+                text: '店铺数据可视化',
+                subtext: '2019/12',
+                left: 'leafDepth'
+            },
+            tooltip: {formatter: function (info) {
+                    var value = info.value;
+                    var treePathInfo = info.treePathInfo;
+                    var treePath = [];
+
+                    for (var i = 1; i < treePathInfo.length; i++) {
+                        treePath.push(treePathInfo[i].name);
+                    }
+                    return [
+                        '<div class="tooltip-title">' + formatUtil.encodeHTML(treePath.join('/')) + '</div>',
+                        '店铺数: ' + formatUtil.addCommas(value)
+                    ].join('');
+                }},
+            series: [{
+                name: '绵阳市',
+                type: 'treemap',
+                visibleMin: 500,
+                data: data.children,
+                leafDepth:1,
+                levels: [
+                    {
+                        itemStyle: {
+                            normal: {
+                                borderColor: '#555',
+                                borderWidth: 4,
+                                gapWidth: 4
+                            }
+                        }
+                    },
+                    {
+                        colorSaturation: [0.3, 0.6],
+                        itemStyle: {
+                            normal: {
+                                borderColorSaturation: 0.7,
+                                gapWidth: 2,
+                                borderWidth: 2
+                            }
+                        }
+                    },
+                    {
+                        colorSaturation: [0.3, 0.5],
+                        itemStyle: {
+                            normal: {
+                                borderColorSaturation: 0.6,
+                                gapWidth: 1
+                            }
+                        }
+                    },
+                    {
+                        colorSaturation: [0.3, 0.5]
+                    }
+                ]
+            }]
+        })
+    });
+</script>
+</body>
+</html>

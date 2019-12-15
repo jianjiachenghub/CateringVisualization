@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Example</title>
+    <script type="text/javascript" src="../js/d3.js"></script>
+    <style>
+        button{
+            float: right;/*设置浮动*/
+            width: 150px;/*设置按钮宽度*/
+            height: 35px;/*设置按钮高度*/
+            color:white;/*字体颜色*/
+            background-color:steelblue;/*按钮背景颜色*/
+            border-radius: 3px;/*让按钮变得圆滑一点*/
+            border-width: 0;/*消去按钮丑的边框*/
+            margin: 0;/*margin0*/
+            outline: none;/*取消轮廓*/
+            font-size: 15px;/*设置字体大小*/
+            font-weight: lighter;/*设置字体粗细*/
+            text-align: center;/*字体居中*/
+            cursor: pointer;/*设置鼠标箭头手势*/
+        }
+        h2{
+            margin:auto;
+        }
+        #container{
+
+            margin: auto;
+            width:700px;
+            height:600px;
+            background-color:#FFCCCC;
+        }
+        svg{
+            margin-top: 50px;
+            /*margin-left:100px;*/
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <h2>订单好评度数据展示</h2>
+    <svg width="530px" height="550px">
+        <script type="text/javascript">
+            var dataset = [0.77, 0.81, 0.81, 0.82, 0.84, 0.81, 0.77, 0.44, 0.78, 0.80, 0.72, 0.89, 0.76, 0.86, 0.51, 0.84, 0.46, 0.89, 0.80, 0.78, 0.85].reverse();
+            var yArray1 = ["咖啡厅 ", "川菜 ", "火锅 ", "其他 ", "快餐简餐 ", "茶馆 ", "西餐 ", "东北菜 ", "烧烤 ", "小吃面食 ", "酒吧 ", "面包甜点 ", "粤菜 ", "新疆菜 ", "清真菜 ", "自助餐 ", "湘菜 ", "江浙菜 ", "日本料理 ", "韩国料理 ", "东南亚菜 ", ];
+            var yArray2 = [];
+            var svg = d3.select("svg");
+            console.log(dataset.length,yArray1.length)
+
+
+            //绘制函数
+            function draw() {
+                for (var i = 0; i < yArray1.length; i++) {
+                    yArray2.push(137 - i * 21);
+                }
+
+                var scale = d3.scaleLinear()
+                    .domain([0, d3.max(dataset)])
+                    .range([0, 300]);
+
+                var yScale = d3.scaleOrdinal()
+                    .domain(yArray1)
+                    .range(yArray2);
+
+
+                svg.selectAll("rect")
+                    .data(dataset)
+                    .enter()
+                    .append("rect")
+                    .attr("x", 50)
+                    .attr("y", function(d, i) {
+                        return i * 21 + 20;
+                    })
+                    .attr("width", function(d) {
+                        return scale(d);
+                    })
+                    .attr("height", 20)
+                    .attr("fill", "steelblue");
+
+                svg.selectAll("text")
+                    .data(dataset)
+                    .enter()
+                    .append("text")
+                    .attr("x", function(d) {
+                        return scale(d) + 50;
+                    }) //左上角
+                    .attr("y", function(d, i) {
+                        return 21 * i + 36
+                    }) //基线（文字底部）
+                    .attr("color", "red")
+                    .style("font-size", "70%")
+                    .text(function(d) {
+                        return d3.format('.0%')(d);
+                    });
+
+                d3.selectAll("rect") //选择第一个矩形
+                    .on("mouseover",function(){
+                        d3.select(this).attr("fill","#FFFFCC");
+                    })
+                    .on("mouseout",function(d){
+                        d3.select(this)
+                            .transition()
+                            .duration(250)
+                            .attr("fill","steelblue");
+                    })
+
+
+                // 设置过渡结束状态
+
+                var xAxis = d3.axisBottom().scale(scale).ticks(6).tickFormat(d3.format(".0%"));
+
+                svg.append("g")
+                    .attr("transform", "translate(50,462)")
+                    .call(xAxis);
+                var yAxis = d3.axisLeft().scale(yScale).tickSize(0);
+                svg.append("g")
+                    .attr("transform", "translate(50,310)")
+                    .call(yAxis);
+
+            }
+
+            draw();
+
+            //排序函数
+            function sort() {
+                //定义数组来存放原始数据和排序后的数据
+                var initData = [];
+                var newyArray = [];
+                var newDataset = [];
+                for (var i = 0; i < yArray1.length; i++) {
+                    var obj = {};
+                    obj.name = yArray1[yArray1.length -1- i];
+                    obj.num = dataset[i];
+                    initData.push(obj);
+                }
+                console.log('初始数组：', initData)
+
+                //对原始数据排序
+                function compare(key) {
+                    return function(value1, value2) {
+                        var val1 = value1[key];
+                        var val2 = value2[key];
+                        return val1 - val2;
+                    }
+                }
+                initData.sort(compare('num'));
+                console.log('更改后的数组：', initData);
+
+
+
+                //从排好序的数组中生成两个新数组
+                initData.forEach(item => {
+                    newyArray.push(item.name);
+                    newDataset.push(item.num);
+                });
+
+
+
+                //对初始数据进行排序
+
+
+                console.log(initData)
+                console.log(newyArray);
+                console.log(newDataset);
+                //用新数组替换元原始数组
+                dataset = newDataset;
+                yArray1 = newyArray.reverse();
+                //清空svg内容
+                svg.selectAll("svg > *").remove();
+
+                draw();
+            }
+        </script>
+    </svg>
+    <button onclick="sort()">排序</button>
+</div>
+
+
+</body>
+</html>
