@@ -303,7 +303,7 @@
             }
 
             if (SampleJSONData[j]['children']) {
-                spanitem.append('<i class="fa fa-caret-down"></i>');
+                spanitem.append('<i class="fa fa-caret-right"></i>');
                 divitem.append(spanitem);
                 divitem.attr('role', 'parent');
             }
@@ -330,7 +330,7 @@
                 divitem.append('<img class="vis" src="../icon/可视化.png" onclick="area(this)" id='+thisName+'>' + '</img>');
             
             }else if(SampleJSONData[j]['class'] === 'second'){
-                divitem.append('<img class="vis" width="25px" height="25px" src="../icon/'+$.trim(oliName)+'.png" onclick="type(this)" id='+thisName+'>' + '</img>');
+                divitem.append('<img class="vis" width="25px" height="25px" src="../icon/'+$.trim(oliName)+'.png" onclick="type(this)"  id='+thisName+'>' + '</img>');
             }else{
                 divitem.append('<img class="vis" src="../icon/'+'位置'+'.png" onclick="where(this)" id='+thisName+'>' + '</img>');
             }
@@ -338,7 +338,7 @@
             container.append(item);
 
             if (SampleJSONData[j]['children']) {
-                let titlediv = $('<div class="tree-sub-body"></div>');
+                let titlediv = $('<div class="tree-sub-body" style="display: none;"></div>');
                 item.append(titlediv);
                 let subul = $('<ul></ul>');
                 titlediv.append(subul);

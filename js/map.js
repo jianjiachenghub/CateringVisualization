@@ -236,6 +236,7 @@ function area(e){
 }
 
 function type(e){
+    window.event.cancelBubble =true;
     let name = e.id.split('-')[1]
     let type = e.id.split('-')[2]
     areaData = gData.filter((value)=>{
