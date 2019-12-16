@@ -61,11 +61,13 @@ var SampleJSONData = [
     }
 ];
 var gData=[]
+
+//尝试随机生成颜色
 var colorArrays = []
 for(let i=0;i<24;i++){
     colorArrays.push('#' + Math.random().toString(16).substr(2, 6).toUpperCase())
 }
-console.log(colorArrays)
+
 var map = new BMap.Map("chart_map"); 
 var point = new BMap.Point(104.74, 31.47); 
 map.centerAndZoom(point, 15);  
@@ -83,7 +85,6 @@ map.setMapStyle({style:'midnight'});
           let poi = searchResult.getPoi(0);
           if(!poi)return
           let result = poi.point.lng + "," + poi.point.lat;
-          console.log(result)
           map.centerAndZoom(poi.point, 13);
           var myIcon = new BMap.Icon("../icon/"+type+'.png', new BMap.Size(32, 32), {
         });
@@ -107,9 +108,12 @@ map.setMapStyle({style:'midnight'});
 
 }
 
-function centerPath(keyword) {
+function centerPath(keyword,clear) {
     var localSearch = new BMap.LocalSearch(map);
-    map.clearOverlays();//清空原来的标注
+    if(!clear){
+        map.clearOverlays();//清空原来的标注
+    }
+    
     localSearch.setSearchCompleteCallback(function (searchResult) {
         var poi = searchResult.getPoi(0);
         if(!poi){
@@ -242,27 +246,16 @@ function type(e){
     areaData = gData.filter((value)=>{
         return value.name == name
     })[0].children
-    console.log(name)
-    console.log(type)
-    console.log(areaData)
+    centerPath('绵阳市 '+name,true)
     typeData = areaData.filter((value)=>{
         return value.type == type+' '
     })[0].children
     typeData.forEach((value)=>{
-
             var data = value
             let path = "绵阳市 "+data.name;
             // 这里for循环同时执行了多个异步函数
             searchByStationName(path,value.path,type)
- 
-        
-
-
-        
     })
-    
-    
-    
 }
 
 function where(e){

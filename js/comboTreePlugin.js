@@ -57,7 +57,7 @@
 
         //点击输入框时候
         $(this.element).on('click', function (event) {
-            console.log(_this.element)
+
 
             
            
@@ -312,7 +312,6 @@
             if (this.options.isMultiple) {
                 if (SampleJSONData[j]['class'] === 'first') {
                     if (this.options.isFirstClassSelectable) {
-                        console.log(isFirstClassSelectable)
                         appendcheckbox(divitem, oliId);
                     }
                 } else {
@@ -325,7 +324,6 @@
             divitem.append('<span class="title-group-name">' + oliName + '</span>');
             parentName = parentName?($.trim(parentName)):""
             let thisName = parentName+'-'+oliName
-            console.log(thisName)
             if (SampleJSONData[j]['class'] === 'first') {
                 divitem.append('<img class="vis" src="../icon/可视化.png" onclick="area(this)" id='+thisName+'>' + '</img>');
             
