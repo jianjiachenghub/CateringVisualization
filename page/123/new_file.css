@@ -1,0 +1,39 @@
+.domain {
+  stroke-width: 2;
+  fill: none;
+  stroke: #888;
+  shape-rendering: crispEdges;
+}
+.tick text {
+  font-size: 14px;
+}
+.grid-line {
+  fill: none;
+  stroke: #888;
+  opacity: .4;
+  shape-rendering: crispEdges;
+}
+.trans-line {
+  fill: none;
+  stroke: #666;
+  opacity: .4;
+}
+.line {
+  fill: none;
+  stroke-width: 2;
+}
+.dot {
+  fill: #fff;
+}
+.tooltip{
+  font-size: 15px;
+  width: auto;
+  padding: 10px;
+  height: auto;
+  position: absolute;
+  background-color: #000000;
+  opacity: .6;
+  border-radius:5px;
+  color: #ffffff;
+  display: none;
+}
