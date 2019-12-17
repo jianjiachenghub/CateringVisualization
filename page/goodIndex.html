@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Example</title>
+    <title>好评度数据可视化</title>
     <script type="text/javascript" src="../js/d3.js"></script>
     <style>
         button{
@@ -10,7 +10,7 @@
             width: 150px;/*设置按钮宽度*/
             height: 35px;/*设置按钮高度*/
             color:white;/*字体颜色*/
-            background-color:steelblue;/*按钮背景颜色*/
+            background-color:#999999;/*按钮背景颜色*/
             border-radius: 3px;/*让按钮变得圆滑一点*/
             border-width: 0;/*消去按钮丑的边框*/
             margin: 0;/*margin0*/
@@ -21,17 +21,17 @@
             cursor: pointer;/*设置鼠标箭头手势*/
         }
         h2{
-            margin:auto;
+            color:white;
         }
         #container{
-
             margin: auto;
             width:700px;
             height:600px;
-            background-color:#FFCCCC;
+            background-color:#336699;
         }
         svg{
-            margin-top: 50px;
+            margin:auto;
+            /*margin-top: 50px;*/
             /*margin-left:100px;*/
         }
     </style>
@@ -45,9 +45,6 @@
             var yArray1 = ["咖啡厅 ", "川菜 ", "火锅 ", "其他 ", "快餐简餐 ", "茶馆 ", "西餐 ", "东北菜 ", "烧烤 ", "小吃面食 ", "酒吧 ", "面包甜点 ", "粤菜 ", "新疆菜 ", "清真菜 ", "自助餐 ", "湘菜 ", "江浙菜 ", "日本料理 ", "韩国料理 ", "东南亚菜 ", ];
             var yArray2 = [];
             var svg = d3.select("svg");
-            console.log(dataset.length,yArray1.length)
-
-
             //绘制函数
             function draw() {
                 for (var i = 0; i < yArray1.length; i++) {
@@ -75,7 +72,7 @@
                         return scale(d);
                     })
                     .attr("height", 20)
-                    .attr("fill", "steelblue");
+                    .attr("fill", "#999999");
 
                 svg.selectAll("text")
                     .data(dataset)
@@ -101,7 +98,7 @@
                         d3.select(this)
                             .transition()
                             .duration(250)
-                            .attr("fill","steelblue");
+                            .attr("fill","#999999");
                     })
 
 
@@ -120,7 +117,6 @@
             }
 
             draw();
-
             //排序函数
             function sort() {
                 //定义数组来存放原始数据和排序后的数据
@@ -146,19 +142,13 @@
                 initData.sort(compare('num'));
                 console.log('更改后的数组：', initData);
 
-
-
                 //从排好序的数组中生成两个新数组
                 initData.forEach(item => {
                     newyArray.push(item.name);
                     newDataset.push(item.num);
                 });
 
-
-
                 //对初始数据进行排序
-
-
                 console.log(initData)
                 console.log(newyArray);
                 console.log(newDataset);
@@ -167,7 +157,6 @@
                 yArray1 = newyArray.reverse();
                 //清空svg内容
                 svg.selectAll("svg > *").remove();
-
                 draw();
             }
         </script>
